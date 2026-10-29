@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" role="img" aria-labelledby="t">
+  <title id="t">Escudo del Club Social y Deportivo Los Algarrobos</title>
+  <!-- Escudo: campo verde con borde blanco y franja amarilla -->
+  <path d="M6 6h108v62c0 36-24 58-54 66C30 126 6 104 6 68z" fill="#F5F3EC"/>
+  <path d="M13 13h94v55c0 31-20 50-47 57C33 118 13 99 13 68z" fill="#2E6B45"/>
+  <path d="M13 92h94c-4 14-12 24-23 31H36c-11-7-19-17-23-31z" fill="#E8B931"/>
+  <!-- Algarrobo: copa ancha en forma de paraguas y tronco retorcido -->
+  <g fill="#F5F3EC">
+    <ellipse cx="60" cy="42" rx="38" ry="13"/>
+    <ellipse cx="42" cy="48" rx="20" ry="9"/>
+    <ellipse cx="79" cy="49" rx="19" ry="8"/>
+    <ellipse cx="60" cy="32" rx="22" ry="9"/>
+  </g>
+  <path d="M60 52c-2 10 4 14 1 24-1 5-4 8-4 16M60 60c-8-2-13-6-16-10M61 66c7-2 12-7 15-12"
+        stroke="#F5F3EC" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Vainas de algarroba sobre la franja -->
+  <g stroke="#1C2620" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M38 104c6 4 12 5 18 3"/>
+    <path d="M64 107c6 2 12 1 18-3"/>
+  </g>
+</svg>

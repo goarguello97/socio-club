@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Planilla de preinscripción a las actividades del Club Los Algarrobos.">
+    <title>Preinscripción · Club Los Algarrobos</title>
+    <link rel="icon" href="img/escudo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body id="pagina-preinscripcion">
+
+    <header class="encabezado">
+        <a class="marca" href="index.html">
+            <img src="img/escudo.svg" alt="Escudo del club Los Algarrobos" width="52" height="61">
+            <span>Club Los Algarrobos<small>Social y Deportivo · Córdoba</small></span>
+        </a>
+        <nav class="navegacion" aria-label="Principal">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="actividades.html">Actividades</a></li>
+                <li><a href="preinscripcion.html" aria-current="page">Preinscripción</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="cartelera" aria-labelledby="titulo-preinscripcion">
+            <h1 id="titulo-preinscripcion" class="letras">Preinscripción</h1>
+            <p class="cartelera-bajada letras amarilla">Dejá tus datos y la actividad que te interesa</p>
+
+            <div class="planilla">
+                <h2>Planilla de preinscripción</h2>
+                <p>Con esta planilla te reservamos el interés; el lugar se confirma en secretaría.</p>
+
+                <!-- novalidate: la validación la hace script.js y muestra cada error junto a su campo -->
+                <form id="form-preinscripcion" class="formulario" novalidate>
+                    <div class="campo">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" autocomplete="given-name" required
+                               aria-describedby="error-nombre">
+                        <span class="mensaje-error" id="error-nombre" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" autocomplete="family-name" required
+                               aria-describedby="error-apellido">
+                        <span class="mensaje-error" id="error-apellido" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="dni">DNI <small>(sin puntos)</small></label>
+                        <input type="text" id="dni" name="dni" inputmode="numeric" maxlength="10" required
+                               placeholder="35123456" aria-describedby="error-dni">
+                        <span class="mensaje-error" id="error-dni" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="nacimiento">Fecha de nacimiento</label>
+                        <input type="date" id="nacimiento" name="nacimiento" autocomplete="bday" required
+                               aria-describedby="error-nacimiento">
+                        <span class="mensaje-error" id="error-nacimiento" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" autocomplete="email" required
+                               placeholder="nombre@correo.com" aria-describedby="error-email">
+                        <span class="mensaje-error" id="error-email" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="telefono">Teléfono <small>(opcional)</small></label>
+                        <input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="351 4561234">
+                    </div>
+
+                    <div class="campo campo-ancho">
+                        <label for="actividad">Actividad</label>
+                        <select id="actividad" name="actividad" required aria-describedby="error-actividad">
+                            <option value="">Elegí una actividad</option>
+                        </select>
+                        <span class="mensaje-error" id="error-actividad" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo campo-ancho">
+                        <label for="comentario">Comentario <small>(opcional)</small></label>
+                        <textarea id="comentario" name="comentario" rows="3"
+                                  placeholder="Por ejemplo: es para mi hijo, ya sabe nadar"></textarea>
+                    </div>
+
+                    <div class="acciones-formulario">
+                        <button type="button" id="boton-volver" class="boton boton-secundario">Volver</button>
+                        <button type="submit" class="boton">Enviar preinscripción</button>
+                    </div>
+                </form>
+
+                <div id="confirmacion" class="confirmacion" hidden>
+                    <h2 tabindex="-1">¡Listo, <span id="nombre-confirmado"></span>!</h2>
+                    <p>Recibimos tu preinscripción a <strong id="actividad-confirmada"></strong>.</p>
+                    <p>Te vamos a escribir a <strong id="email-confirmado"></strong>. Para confirmar el lugar, pasá por secretaría.</p>
+                    <a class="boton" href="actividades.html">Ver más actividades</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p>Club Social y Deportivo Los Algarrobos · Zona norte, Córdoba</p>
+        <p>SocioClub · Taller de Construcción de Software · Universidad Siglo 21</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+# Base de datos MySQL del proyecto SocioClub.
+# Solo levanta MySQL: el backend se corre con Maven (mvnw spring-boot:run).
+#
+#   docker compose up -d      -> crea y arranca la base
+#   docker compose down -v    -> la borra (la próxima vez se vuelve a cargar el script)
+name: socioclub
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: socioclub-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: socioclub
+      MYSQL_USER: socioclub
+      MYSQL_PASSWORD: socioclub123
+      TZ: America/Argentina/Cordoba
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      # 3307 en la PC para no chocar con un MySQL local que ya use el 3306
+      - "3307:3306"
+    volumes:
+      # El script se ejecuta automáticamente solo la primera vez que se crea el volumen
+      - ./database/socioclub.sql:/docker-entrypoint-initdb.d/01-socioclub.sql:ro
+      - socioclub-data:/var/lib/mysql
+
+volumes:
+  socioclub-data:

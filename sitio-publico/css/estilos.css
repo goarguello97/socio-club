@@ -1,0 +1,899 @@
+/* =====================================================================
+   Club Social y Deportivo Los Algarrobos — sitio público
+   Mundo visual: la cartelera de letras de la secretaría.
+   La página es la pared verde del club; la información vive en el paño
+   ranurado de la cartelera, escrita con letras de plástico.
+   ===================================================================== */
+
+/* ---------- Tipografías (servidas desde el propio sitio) ---------- */
+
+@font-face {
+    font-family: "Archivo Narrow";
+    src: url("../fonts/archivo-narrow-variable.woff2") format("woff2");
+    font-weight: 400 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("../fonts/atkinson-400.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("../fonts/atkinson-700.woff2") format("woff2");
+    font-weight: 700;
+    font-display: swap;
+}
+
+/* ---------- Variables de color y medidas ---------- */
+
+:root {
+    --pared: #2e6b45;          /* pintura verde de la pared del club */
+    --pared-sombra: #245738;
+    --pano: #1c2620;           /* paño de la cartelera */
+    --ranura: #121a15;         /* ranura donde se encastran las letras */
+    --letra: #f5f3ec;          /* letra de plástico blanca */
+    --letra-suave: #c9d3cc;    /* letra blanca gastada, para datos secundarios sobre el paño */
+    --texto-pared: #e1eee4;    /* texto secundario sobre la pared verde */
+    --letra-amarilla: #e8b931;
+    --letra-gastada: #8a978f;  /* letra que no corresponde: gastada, pero legible (≥3:1 en texto grande) */
+    --aluminio: #c3c9cb;
+    --aluminio-oscuro: #8e979a;
+    --papel: #ffffff;
+    --tinta: #1c2620;
+    --tinta-suave: #4b5a50;
+    --error-papel: #b3261e;
+
+    --renglon: 2.75rem;        /* distancia entre ranuras del paño */
+    --ancho: 1180px;
+    --fuente-letras: "Archivo Narrow", "Arial Narrow", sans-serif;
+    --fuente-texto: "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+
+/* ---------- Base (selectores de tipo) ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scrollbar-color: var(--letra-amarilla) var(--pared-sombra);
+}
+
+body {
+    margin: 0;
+    font-family: var(--fuente-texto);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--letra);
+    background-color: var(--pared);
+    caret-color: var(--letra-amarilla);
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+p {
+    margin: 0 0 1em;
+    max-width: 65ch;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+}
+
+::selection {
+    background: var(--letra-amarilla);
+    color: var(--pano);
+}
+
+:focus-visible {
+    outline: 3px solid var(--letra-amarilla);
+    outline-offset: 3px;
+}
+
+/* ---------- Letras de plástico ---------- */
+
+.letras {
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--letra);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
+}
+
+.amarilla {
+    color: var(--letra-amarilla);
+}
+
+/* Texto solo para lectores de pantalla */
+.solo-lector {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---------- Encabezado: la pared del club ---------- */
+
+.encabezado {
+    max-width: var(--ancho);
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+}
+
+.marca img {
+    width: 52px;
+    height: auto;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.35));
+}
+
+.marca span {
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.15;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.marca small {
+    display: block;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    color: var(--texto-pared);
+}
+
+/* Navegación: fichas de plástico sueltas */
+.navegacion ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.navegacion a {
+    display: block;
+    padding: 8px 14px;
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--pano);
+    background: var(--letra);
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+    transition: transform 0.15s ease-out, background-color 0.15s ease-out;
+}
+
+.navegacion a:hover {
+    transform: translateY(-2px);
+}
+
+/* Selector de atributo: la página actual va en amarillo */
+.navegacion a[aria-current="page"] {
+    background: var(--letra-amarilla);
+}
+
+/* ---------- La cartelera ---------- */
+
+main {
+    max-width: var(--ancho);
+    margin: 0 auto;
+    padding: 0 24px 48px;
+}
+
+/* Ranuras horizontales del paño: una línea oscura cada renglón.
+   Se define acá (y no en :root) para que tome el --renglon de cada elemento. */
+.cartelera,
+.semana {
+    --ranuras: repeating-linear-gradient(
+        to bottom,
+        var(--pano) 0,
+        var(--pano) calc(var(--renglon) - 3px),
+        var(--ranura) calc(var(--renglon) - 3px),
+        var(--ranura) var(--renglon)
+    );
+}
+
+.cartelera {
+    position: relative;
+    padding: 28px 32px 32px;
+    border: 14px solid var(--aluminio);
+    border-image: linear-gradient(160deg, #e1e5e6, var(--aluminio) 40%, var(--aluminio-oscuro)) 1;
+    background-color: var(--pano);
+    background-image: var(--ranuras);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(0, 0, 0, 0.6);
+}
+
+.cartelera h1 {
+    font-size: clamp(2rem, 5.5vw, 3.75rem);
+    line-height: 1.15;
+}
+
+.cartelera-bajada {
+    margin: 10px 0 0;
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+/* Ranura de la edad: el número es una letra amarilla editable */
+.ranura-edad {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+    margin-top: 24px;
+}
+
+.ranura-edad label {
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+}
+
+input[type="number"].numero-edad {
+    width: 3.4ch;
+    padding: 2px 6px;
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 1;
+    text-align: center;
+    color: var(--letra-amarilla);
+    background: var(--ranura);
+    border: 0;
+    border-bottom: 3px solid var(--letra-amarilla);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+    font-variant-numeric: tabular-nums;
+    -moz-appearance: textfield;
+}
+
+input[type="number"].numero-edad::-webkit-inner-spin-button,
+input[type="number"].numero-edad::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"].numero-edad::placeholder {
+    color: var(--letra-suave);
+}
+
+/* Botón principal: una ficha amarilla grande */
+.boton {
+    display: inline-block;
+    padding: 12px 20px;
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--pano);
+    background: var(--letra-amarilla);
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.boton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.boton:active {
+    transform: translateY(0);
+}
+
+.boton-secundario {
+    color: var(--letra);
+    background: transparent;
+    box-shadow: inset 0 0 0 2px var(--letra);
+}
+
+/* ---------- Semana del club (filas de letras) ---------- */
+
+/* La lista lleva sus propias ranuras, alineadas con sus filas */
+.semana {
+    list-style: none;
+    margin: 28px 0 0;
+    padding: 0;
+    background-color: var(--pano);
+    background-image: var(--ranuras);
+}
+
+.fila {
+    height: var(--renglon);
+    display: grid;
+    /* Anchos medidos para las letras espaciadas: "LUN MIÉ VIE", "20:30", "16 A 99", "$ 26.000" */
+    grid-template-columns: 9.5em 4.5em minmax(0, 1fr) 6em 7.5em;
+    gap: 0 24px;
+    align-items: center;
+    min-height: var(--renglon);
+    font-size: 1.2rem;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.fila .actividad {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fila .dias,
+.fila .hora {
+    color: var(--letra-amarilla);
+}
+
+.fila .edades {
+    color: var(--letra-suave);
+}
+
+.fila .cuota {
+    text-align: right;
+}
+
+/* Fila que no corresponde a la edad elegida: baja al final de la cartelera
+   con letra gastada (en una cartelera de letras no se puede tachar) */
+.fila.fuera-de-edad,
+.fila.fuera-de-edad .dias,
+.fila.fuera-de-edad .hora,
+.fila.fuera-de-edad .edades {
+    color: var(--letra-gastada);
+    text-shadow: none;
+}
+
+/* ---------- Animación firma: las letras se colocan de izquierda a derecha ---------- */
+
+@keyframes colocar {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+.colocando {
+    /* backwards: el recorte se aplica durante la espera y la animación, no después
+       (si quedara puesto recortaría el área tocable de los botones) */
+    animation: colocar 0.55s steps(16, end) backwards;
+    animation-delay: calc(var(--orden, 0) * 60ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .colocando {
+        animation: none;
+    }
+}
+
+/* ---------- Secciones sobre la pared ---------- */
+
+.seccion {
+    margin-top: 64px;
+}
+
+.seccion h2 {
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.club {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: 48px;
+    align-items: start;
+}
+
+.club article p {
+    font-size: 1.125rem;
+}
+
+.club h3 {
+    margin: 32px 0 8px;
+    font-family: var(--fuente-letras);
+    font-size: 1.35rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* Los pasos para anotarse: tres fichas pinchadas en la pared */
+.pasos {
+    background: var(--pared-sombra);
+    padding: 24px 28px;
+    border-radius: 4px;
+}
+
+.pasos h2 {
+    font-size: 1.75rem;
+}
+
+.pasos ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: paso;
+}
+
+.pasos li {
+    counter-increment: paso;
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.pasos li::before {
+    content: counter(paso);
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    color: var(--pano);
+    background: var(--letra-amarilla);
+    border-radius: 3px;
+}
+
+/* ---------- Catálogo de actividades ---------- */
+
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 20px 36px;
+    margin-top: 22px;
+}
+
+.filtros fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.filtros legend {
+    padding: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.disciplinas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ficha-disciplina {
+    min-height: 44px;
+    padding: 7px 12px;
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--letra);
+    background: transparent;
+    border: 2px solid var(--letra-suave);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.ficha-disciplina:hover {
+    border-color: var(--letra);
+}
+
+/* Selector de atributo: la disciplina elegida queda encastrada en amarillo */
+.ficha-disciplina[aria-pressed="true"] {
+    color: var(--pano);
+    background: var(--letra-amarilla);
+    border-color: var(--letra-amarilla);
+}
+
+#resultado-filtro {
+    margin: 22px 0 0;
+    line-height: var(--renglon);
+    color: var(--letra-suave);
+}
+
+/* Las fichas van escritas sobre el paño: la lista lleva sus propias ranuras
+   y todo lo que contiene mide un número entero de renglones. */
+#lista-actividades {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--renglon) 48px;
+    background-color: var(--pano);
+    background-image: var(--ranuras);
+}
+
+#lista-actividades {
+    --ranuras: repeating-linear-gradient(
+        to bottom,
+        var(--pano) 0,
+        var(--pano) calc(var(--renglon) - 3px),
+        var(--ranura) calc(var(--renglon) - 3px),
+        var(--ranura) var(--renglon)
+    );
+}
+
+.ficha {
+    position: relative;
+    padding-top: var(--renglon);
+}
+
+/* Riel de aluminio que separa cada actividad, dentro del primer renglón */
+.ficha::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--renglon) / 2 - 2px);
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to bottom, #e1e5e6, var(--aluminio-oscuro));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.ficha-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: var(--renglon);
+}
+
+/* Pictograma montado en una ficha de plástico blanca */
+.ficha-picto {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: calc(var(--renglon) - 6px);
+    height: calc(var(--renglon) - 6px);
+    background: var(--letra);
+    border-radius: 3px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
+}
+
+.ficha-picto img {
+    width: 75%;
+    height: 75%;
+}
+
+.ficha h2 {
+    font-size: 1.45rem;
+    line-height: var(--renglon);
+}
+
+.ficha dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 18px;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.ficha dt,
+.ficha dd {
+    margin: 0;
+    line-height: var(--renglon);
+    white-space: nowrap;
+}
+
+.ficha dt {
+    font-size: 0.85rem;
+    color: var(--letra-suave);
+}
+
+.ficha-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: var(--renglon);
+}
+
+.ficha-cuota {
+    margin: 0;
+    font-size: 1.45rem;
+    white-space: nowrap;
+}
+
+.ficha-cuota small {
+    font-size: 0.75rem;
+    color: var(--letra-suave);
+}
+
+.ficha-pie .boton {
+    position: relative;
+    padding: 0 14px;
+    line-height: calc(var(--renglon) - 10px);
+    white-space: nowrap;
+}
+
+/* El botón se dibuja dentro del renglón, pero el área que se toca mide 44px de alto */
+.ficha-pie .boton::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+}
+
+.sin-resultados {
+    grid-column: 1 / -1;
+    padding: var(--renglon) 0;
+    line-height: var(--renglon);
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+/* ---------- Preinscripción: la planilla pinchada en la cartelera ---------- */
+
+.planilla {
+    position: relative;
+    max-width: 760px;
+    margin: 28px auto 0;
+    padding: 36px 40px 32px;
+    color: var(--tinta);
+    background: var(--papel);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+    transform: rotate(-0.4deg);
+}
+
+/* Chinches arriba de la hoja */
+.planilla::before,
+.planilla::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffd76a, var(--letra-amarilla) 55%, #9c7a14);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.45);
+}
+
+.planilla::before {
+    left: 18px;
+}
+
+.planilla::after {
+    right: 18px;
+}
+
+.planilla h2 {
+    margin-bottom: 10px;
+    font-family: var(--fuente-letras);
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.planilla > p {
+    color: var(--tinta-suave);
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 22px 24px;
+    margin-top: 20px;
+}
+
+/* Mismo espacio entre todos los campos; el mensaje de error aparece dentro del campo */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campo-ancho {
+    grid-column: 1 / -1;
+}
+
+.campo label {
+    font-weight: 700;
+}
+
+.campo label small {
+    font-weight: 400;
+    color: var(--tinta-suave);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font: inherit;
+    color: var(--tinta);
+    background: var(--papel);
+    border: 2px solid #9aa59e;
+    border-radius: 4px;
+}
+
+.campo input:focus-visible,
+.campo select:focus-visible,
+.campo textarea:focus-visible {
+    outline: 3px solid var(--pared);
+    outline-offset: 1px;
+    border-color: var(--pared);
+}
+
+/* Campo con error: borde rojo y mensaje debajo */
+.campo.con-error input,
+.campo.con-error select {
+    border-color: var(--error-papel);
+}
+
+.mensaje-error:empty {
+    display: none;
+}
+
+.mensaje-error {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--error-papel);
+}
+
+.acciones-formulario {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.acciones-formulario .boton-secundario {
+    color: var(--tinta);
+    box-shadow: inset 0 0 0 2px var(--tinta);
+}
+
+.confirmacion {
+    padding: 8px 0;
+}
+
+.confirmacion h2 {
+    color: var(--pared);
+}
+
+/* ---------- Pie ---------- */
+
+.pie {
+    max-width: var(--ancho);
+    margin: 0 auto;
+    padding: 28px 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--texto-pared);
+    border-top: 1px solid rgba(245, 243, 236, 0.2);
+}
+
+.pie p {
+    margin: 0;
+}
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 760px) {
+    main {
+        padding: 0 12px 36px;
+    }
+
+    .encabezado {
+        padding: 16px 12px;
+    }
+
+    .navegacion a {
+        padding: 12px 10px;
+        font-size: 0.85rem;
+        letter-spacing: 0.06em;
+    }
+
+    .cartelera {
+        --renglon: 2.25rem;
+    }
+
+    .cartelera {
+        padding: 20px 16px 22px;
+        border-width: 8px;
+    }
+
+    /* Cada fila de la semana ocupa dos renglones del paño */
+    .fila {
+        grid-template-columns: max-content minmax(0, 1fr) max-content;
+        grid-template-areas:
+            "dias hora cuota"
+            "actividad actividad edades";
+        grid-auto-rows: var(--renglon);
+        height: calc(var(--renglon) * 2);
+        gap: 0 12px;
+        font-size: 1.05rem;
+    }
+
+    .fila .dias { grid-area: dias; }
+    .fila .hora { grid-area: hora; }
+    .fila .actividad { grid-area: actividad; }
+    .fila .edades { grid-area: edades; text-align: right; }
+    .fila .cuota { grid-area: cuota; }
+
+    /* Las fichas de actividades pasan a una sola columna */
+    #lista-actividades {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* En celular el pie de la ficha ocupa dos renglones: cuota arriba, botón abajo */
+    .ficha-pie {
+        flex-wrap: wrap;
+        height: auto;
+        row-gap: 0;
+    }
+
+    .ficha-cuota {
+        flex-basis: 100%;
+        line-height: var(--renglon);
+    }
+
+    .ficha-pie .boton {
+        margin: 5px 0;
+    }
+
+    .club {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .planilla {
+        padding: 32px 18px 24px;
+        transform: none;
+    }
+
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-formulario {
+        flex-direction: column-reverse;
+    }
+}

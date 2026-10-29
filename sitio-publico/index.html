@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Club Social y Deportivo Los Algarrobos, zona norte de Córdoba: actividades, horarios, edades y cuotas.">
+    <title>Club Los Algarrobos · Esta semana en el club</title>
+    <link rel="icon" href="img/escudo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body id="pagina-inicio">
+
+    <header class="encabezado">
+        <a class="marca" href="index.html">
+            <img src="img/escudo.svg" alt="Escudo del club Los Algarrobos" width="52" height="61">
+            <span>Club Los Algarrobos<small>Social y Deportivo · Córdoba</small></span>
+        </a>
+        <nav class="navegacion" aria-label="Principal">
+            <ul>
+                <li><a href="index.html" aria-current="page">Inicio</a></li>
+                <li><a href="actividades.html">Actividades</a></li>
+                <li><a href="preinscripcion.html">Preinscripción</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="cartelera" aria-labelledby="titulo-semana">
+            <h1 id="titulo-semana" class="letras">Esta semana en el club</h1>
+            <p class="cartelera-bajada letras amarilla">Ocho actividades para chicos y grandes</p>
+
+            <!-- Sin JavaScript igual funciona: envía la edad a actividades.html?edad=N -->
+            <form class="filtros" action="actividades.html" method="get">
+                <div class="ranura-edad">
+                    <label class="letras" for="edad">¿Cuántos años tenés?</label>
+                    <input class="numero-edad" type="number" id="edad" name="edad" min="0" max="120"
+                           inputmode="numeric" placeholder="--">
+                </div>
+                <fieldset>
+                    <legend class="letras">Disciplina</legend>
+                    <div id="disciplinas" class="disciplinas"></div>
+                </fieldset>
+                <input type="hidden" id="disciplina-elegida" name="disciplina" disabled>
+                <button class="boton" type="submit">Ver mis actividades</button>
+            </form>
+
+            <ul id="semana" class="semana" aria-label="Actividades de la semana"></ul>
+            <noscript>
+                <p class="letras">Activá JavaScript para ver la semana del club, o entrá a <a href="actividades.html">Actividades</a>.</p>
+            </noscript>
+        </section>
+
+        <section class="seccion club">
+            <article>
+                <h2>El club</h2>
+                <!-- TEXTO DE EJEMPLO: reemplazar con la historia real del club -->
+                <p>Los Algarrobos es el club del barrio: el lugar donde los chicos aprenden a nadar, los grandes
+                    juegan al vóley después del trabajo y los sábados a la mañana se arma la mesa de ajedrez.</p>
+                <p>Somos alrededor de 650 socios y tenemos ocho actividades para todas las edades, con profes
+                    que conocen a cada uno por su nombre.</p>
+
+                <h3>Dónde estamos</h3>
+                <!-- TEXTO DE EJEMPLO: completar con la dirección real -->
+                <p>En la zona norte de la ciudad de Córdoba. Para cualquier consulta, acercate a la secretaría del club.</p>
+            </article>
+
+            <aside class="pasos" aria-labelledby="titulo-pasos">
+                <h2 id="titulo-pasos">Cómo anotarte</h2>
+                <ol>
+                    <li><span>Buscá en <a href="actividades.html">Actividades</a> la que va con tu edad y tu horario.</span></li>
+                    <li><span>Completá la <a href="preinscripcion.html">planilla de preinscripción</a>.</span></li>
+                    <li><span>Pasá por secretaría para confirmar tu lugar y asociarte.</span></li>
+                </ol>
+            </aside>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p>Club Social y Deportivo Los Algarrobos · Zona norte, Córdoba</p>
+        <p>SocioClub · Taller de Construcción de Software · Universidad Siglo 21</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

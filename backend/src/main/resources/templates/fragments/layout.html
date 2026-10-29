@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!--
+  Fragmentos reutilizables del sistema de secretaría.
+  Cada pantalla los incluye con th:replace="~{fragments/layout :: nombre}".
+-->
+
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' · Secretaría Los Algarrobos'">Secretaría</title>
+    <link rel="stylesheet" th:href="@{/css/backoffice.css}">
+</head>
+
+<body>
+
+<header th:fragment="encabezado(seccion)" class="encabezado">
+    <div class="encabezado__marca">
+        <span class="encabezado__logo" aria-hidden="true">LA</span>
+        <div>
+            <strong>Club Los Algarrobos</strong>
+            <small>Sistema de secretaría</small>
+        </div>
+    </div>
+    <nav class="encabezado__nav">
+        <a th:href="@{/actividades}" th:classappend="${seccion == 'actividades'} ? 'activo'">Actividades</a>
+        <!-- Semana 2: Socios e Inscripciones -->
+    </nav>
+</header>
+
+<div th:fragment="mensajes" class="mensajes">
+    <p th:if="${exito}" class="alerta alerta--exito" th:text="${exito}">Operación exitosa</p>
+    <p th:if="${error}" class="alerta alerta--error" th:text="${error}">Error</p>
+</div>
+
+<footer th:fragment="pie" class="pie">
+    <p>Club Social y Deportivo Los Algarrobos · Córdoba</p>
+    <p>SocioClub · Taller de Construcción de Software · Universidad Siglo 21</p>
+</footer>
+
+</body>
+</html>

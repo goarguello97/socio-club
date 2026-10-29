@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Actividades del Club Los Algarrobos: días, horarios, edades, profes y cuota mensual.">
+    <title>Actividades · Club Los Algarrobos</title>
+    <link rel="icon" href="img/escudo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body id="pagina-actividades">
+
+    <header class="encabezado">
+        <a class="marca" href="index.html">
+            <img src="img/escudo.svg" alt="Escudo del club Los Algarrobos" width="52" height="61">
+            <span>Club Los Algarrobos<small>Social y Deportivo · Córdoba</small></span>
+        </a>
+        <nav class="navegacion" aria-label="Principal">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="actividades.html" aria-current="page">Actividades</a></li>
+                <li><a href="preinscripcion.html">Preinscripción</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="cartelera" aria-labelledby="titulo-actividades">
+            <h1 id="titulo-actividades" class="letras">Actividades</h1>
+            <p class="cartelera-bajada letras amarilla">Poné tu edad y elegí la disciplina</p>
+
+            <form class="filtros" role="search" aria-label="Filtrar actividades">
+                <div class="ranura-edad">
+                    <label class="letras" for="edad">¿Cuántos años tenés?</label>
+                    <input class="numero-edad" type="number" id="edad" name="edad" min="0" max="120"
+                           inputmode="numeric" placeholder="--">
+                </div>
+                <fieldset>
+                    <legend class="letras">Disciplina</legend>
+                    <div id="disciplinas" class="disciplinas"></div>
+                </fieldset>
+            </form>
+
+            <p id="resultado-filtro" class="letras" aria-live="polite"></p>
+            <div id="lista-actividades"></div>
+            <noscript>
+                <p class="letras">Activá JavaScript para ver el catálogo de actividades.</p>
+            </noscript>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p>Club Social y Deportivo Los Algarrobos · Zona norte, Córdoba</p>
+        <p>SocioClub · Taller de Construcción de Software · Universidad Siglo 21</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Actividades')}"></head>
+<body>
+
+<header th:replace="~{fragments/layout :: encabezado('actividades')}"></header>
+
+<main class="contenido">
+    <div class="titulo-seccion">
+        <h1>Actividades</h1>
+        <a class="boton boton--primario" th:href="@{/actividades/nueva}">+ Nueva actividad</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensajes}"></div>
+
+    <form class="filtro" th:action="@{/actividades}" method="get">
+        <label for="disciplina">Disciplina</label>
+        <select id="disciplina" name="disciplina" onchange="this.form.submit()">
+            <option value="">Todas</option>
+            <option th:each="d : ${disciplinas}" th:value="${d}" th:text="${d}"
+                    th:selected="${d == disciplinaSeleccionada}">Fútbol</option>
+        </select>
+        <noscript><button class="boton" type="submit">Filtrar</button></noscript>
+    </form>
+
+    <p th:if="${#lists.isEmpty(actividades)}" class="vacio">No hay actividades cargadas.</p>
+
+    <div th:unless="${#lists.isEmpty(actividades)}" class="tabla-contenedor">
+        <table class="tabla">
+            <thead>
+            <tr>
+                <th>Actividad</th>
+                <th>Disciplina</th>
+                <th>Días y horario</th>
+                <th>Edades</th>
+                <th>Profesor/a</th>
+                <th class="num">Cuota</th>
+                <th class="num">Cupo disponible</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="a : ${actividades}">
+                <td><strong th:text="${a.nombre}">Fútbol infantil</strong></td>
+                <td th:text="${a.disciplina}">Fútbol</td>
+                <td th:text="${a.dias} + ' ' + ${a.horario}">Lun y Mié 18:00</td>
+                <td th:text="${a.edadMinima} + ' a ' + ${a.edadMaxima}">6 a 12</td>
+                <td th:text="${a.profesor}">Diego Ferreyra</td>
+                <td class="num" th:text="'$ ' + ${#numbers.formatDecimal(a.cuotaMensual, 1, 'POINT', 0, 'COMMA')}">$ 18.000</td>
+                <td class="num">
+                    <span class="cupo"
+                          th:classappend="${a.cupoDisponible == 0 ? 'cupo--lleno' : (a.cupoDisponible <= 3 ? 'cupo--poco' : '')}"
+                          th:text="${a.cupoDisponible} + ' / ' + ${a.cupoMaximo}">12 / 40</span>
+                </td>
+                <td class="acciones">
+                    <a class="boton boton--chico" th:href="@{/actividades/{id}/editar(id=${a.id})}">Editar</a>
+                    <form th:action="@{/actividades/{id}/eliminar(id=${a.id})}" method="post"
+                          onsubmit="return confirm('¿Eliminar esta actividad?')">
+                        <button class="boton boton--chico boton--peligro" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+
+</body>
+</html>
