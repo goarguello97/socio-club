@@ -19,3 +19,6 @@ Thumbs.db
 # Configuración local de Claude Code (skills, hooks y binarios de herramientas)
 .claude/
 .impeccable/
+
+# Material interno del grupo
+privado/
