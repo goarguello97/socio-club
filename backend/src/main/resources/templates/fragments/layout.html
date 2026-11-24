@@ -24,7 +24,8 @@
     </div>
     <nav class="encabezado__nav">
         <a th:href="@{/actividades}" th:classappend="${seccion == 'actividades'} ? 'activo'">Actividades</a>
-        <!-- Semana 2: Socios e Inscripciones -->
+        <a th:href="@{/socios}" th:classappend="${seccion == 'socios'} ? 'activo'">Socios</a>
+        <a th:href="@{/inscripciones/nueva}" th:classappend="${seccion == 'inscripciones'} ? 'activo'">Inscribir</a>
     </nav>
 </header>
 

@@ -1,0 +1,79 @@
+/* Tipografías y colores compartidos con el sitio público (ver DESIGN.md) */
+
+@font-face {
+  font-family: "Archivo Narrow";
+  src: url("./fuentes/archivo-narrow-variable.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("./fuentes/atkinson-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("./fuentes/atkinson-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --pared: #2e6b45;
+  --pared-sombra: #245738;
+  --pano: #1c2620;
+  --ranura: #121a15;
+  --letra: #f5f3ec;
+  --letra-suave: #c9d3cc;
+  --letra-gastada: #8a978f;
+  --texto-pared: #e1eee4;
+  --letra-amarilla: #e8b931;
+  --letra-roja: #ff8a73;
+  --aluminio: #c3c9cb;
+  --renglon: 2.5rem;
+  --ranuras: repeating-linear-gradient(
+    to bottom,
+    var(--pano) 0,
+    var(--pano) calc(var(--renglon) - 3px),
+    var(--ranura) calc(var(--renglon) - 3px),
+    var(--ranura) var(--renglon)
+  );
+  --fuente-letras: "Archivo Narrow", "Arial Narrow", sans-serif;
+  --fuente-texto: "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-color: var(--letra-amarilla) var(--pared-sombra);
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-texto);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--letra);
+  background-color: var(--pared);
+  caret-color: var(--letra-amarilla);
+}
+
+::selection {
+  background: var(--letra-amarilla);
+  color: var(--pano);
+}
+
+:focus-visible {
+  outline: 3px solid var(--letra-amarilla);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}

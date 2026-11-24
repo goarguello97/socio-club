@@ -1,0 +1,448 @@
+/* Estructura general de Mi Club: misma identidad que el sitio, más sobria (es una app de uso) */
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.letras {
+  font-family: var(--fuente-letras);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ---------- Encabezado ---------- */
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 16px 20px;
+}
+
+.encabezado__marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.encabezado__marca span {
+  font-family: var(--fuente-letras);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.encabezado__marca small {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--texto-pared);
+}
+
+.encabezado__nav {
+  display: flex;
+  gap: 8px;
+}
+
+.encabezado__nav a {
+  display: block;
+  min-height: 44px;
+  padding: 11px 14px;
+  font-family: var(--fuente-letras);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--pano);
+  background: var(--letra);
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* NavLink agrega la clase "active" a la ruta actual */
+.encabezado__nav a.active {
+  background: var(--letra-amarilla);
+}
+
+.encabezado__socio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--texto-pared);
+}
+
+.encabezado__socio .boton {
+  min-height: 44px;
+}
+
+/* ---------- Contenido ---------- */
+
+.contenido {
+  flex: 1;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.cartelera {
+  margin-bottom: 24px;
+  padding: 22px 26px;
+  background-color: var(--pano);
+  background-image: var(--ranuras);
+  border: 12px solid var(--aluminio);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.cartelera h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  line-height: var(--renglon);
+}
+
+.bajada {
+  margin: 0;
+  line-height: var(--renglon);
+  color: var(--letra-amarilla);
+}
+
+.filtro {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+select,
+input {
+  min-height: 44px;
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--pano);
+  background: var(--letra);
+  border: 0;
+  border-radius: 3px;
+}
+
+/* ---------- Botones ---------- */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  font-family: var(--fuente-letras);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--pano);
+  background: var(--letra-amarilla);
+  border: 0;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.15s ease-out;
+}
+
+.boton:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.boton:disabled {
+  color: var(--letra-gastada);
+  background: #3a463f;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.boton--secundario {
+  color: var(--letra);
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--letra);
+}
+
+.boton--peligro {
+  color: var(--pano);
+  background: var(--letra-roja);
+}
+
+.boton--chico {
+  min-height: 36px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+/* ---------- Mensajes ---------- */
+
+.alerta {
+  margin: 0 0 18px;
+  padding: 12px 16px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.alerta--error {
+  color: var(--pano);
+  background: var(--letra-roja);
+}
+
+.alerta--exito {
+  color: var(--pano);
+  background: var(--letra-amarilla);
+}
+
+.mensaje-error {
+  min-height: 1.5em;
+  margin: 6px 0 12px;
+  color: var(--letra-roja);
+  font-weight: 700;
+}
+
+.estado-carga {
+  color: var(--texto-pared);
+}
+
+.aviso-moroso {
+  margin: 12px 0 0;
+  color: var(--letra-roja);
+  font-weight: 700;
+}
+
+/* ---------- Ingreso ---------- */
+
+.ingreso {
+  max-width: 520px;
+  margin: 24px auto;
+}
+
+.ingreso form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 18px;
+}
+
+.ingreso label {
+  margin-bottom: 6px;
+}
+
+.ingreso input {
+  font-family: var(--fuente-letras);
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- Catálogo ---------- */
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* ---------- Detalle ---------- */
+
+.detalle {
+  max-width: 680px;
+}
+
+.detalle__datos {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0 20px;
+  margin: 14px 0 20px;
+  font-size: 1.1rem;
+}
+
+.detalle__datos dt,
+.detalle__datos dd {
+  margin: 0;
+  line-height: var(--renglon);
+}
+
+.detalle__datos dt {
+  color: var(--letra-suave);
+}
+
+.detalle__datos dd {
+  font-weight: 700;
+}
+
+.texto-sin-cupo {
+  color: var(--letra-roja);
+}
+
+.detalle__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.detalle__nota {
+  margin: 14px 0 0;
+  color: var(--letra-amarilla);
+}
+
+/* ---------- Mis actividades ---------- */
+
+.mis-actividades {
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.mis-actividades__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  padding: 16px 20px;
+  background: var(--pano);
+  border-left: 0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.mis-actividades__item h2 {
+  margin: 0 0 4px;
+  font-size: 1.3rem;
+}
+
+.mis-actividades__item p {
+  margin: 0;
+  color: var(--letra-suave);
+}
+
+.mis-actividades__cuota {
+  font-weight: 700;
+  color: var(--letra-amarilla) !important;
+}
+
+.vacio {
+  padding: 24px;
+  text-align: center;
+  background: var(--pared-sombra);
+}
+
+.vacio p {
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+}
+
+.resumen {
+  padding: 20px 24px;
+  color: var(--pano);
+  background: var(--letra);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+}
+
+.resumen h2 {
+  margin: 0 0 12px;
+  font-family: var(--fuente-letras);
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.resumen__lineas {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 20px;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.resumen__lineas dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 700;
+}
+
+.resumen__total {
+  padding-top: 8px;
+  border-top: 2px solid var(--pano);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.resumen__ayuda {
+  margin: 12px 0 0;
+  color: #4b5a50;
+}
+
+/* ---------- Pie ---------- */
+
+.pie {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 20px;
+  font-size: 0.9rem;
+  color: var(--texto-pared);
+  border-top: 1px solid rgba(245, 243, 236, 0.2);
+}
+
+.pie p {
+  margin: 2px 0;
+}
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 760px) {
+  .grilla {
+    grid-template-columns: 1fr;
+  }
+
+  /* En celular: escudo arriba; navegación y "Salir" en una sola fila */
+  .encabezado__marca {
+    flex-basis: 100%;
+  }
+
+  .encabezado__nav {
+    gap: 6px;
+  }
+
+  .encabezado__nav a {
+    padding: 11px 10px;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+  }
+
+  .encabezado__socio {
+    margin-left: auto;
+  }
+
+  .encabezado__socio span {
+    display: none;
+  }
+
+  .cartelera {
+    padding: 16px;
+    border-width: 8px;
+  }
+
+  .mis-actividades__item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 980px) {
+  .grilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

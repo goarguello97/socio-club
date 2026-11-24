@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ar.edu.siglo21.socioclub.model.Actividad;
 import ar.edu.siglo21.socioclub.service.ActividadService;
+import ar.edu.siglo21.socioclub.service.InscripcionService;
 import ar.edu.siglo21.socioclub.service.RecursoNoEncontradoException;
 import ar.edu.siglo21.socioclub.service.ReglaNegocioException;
 
@@ -25,9 +26,11 @@ import ar.edu.siglo21.socioclub.service.ReglaNegocioException;
 public class ActividadController {
 
     private final ActividadService actividadService;
+    private final InscripcionService inscripcionService;
 
-    public ActividadController(ActividadService actividadService) {
+    public ActividadController(ActividadService actividadService, InscripcionService inscripcionService) {
         this.actividadService = actividadService;
+        this.inscripcionService = inscripcionService;
     }
 
     // GET /actividades?disciplina=Fútbol
@@ -75,6 +78,19 @@ public class ActividadController {
             // Volvemos al formulario conservando lo que escribió el usuario
             model.addAttribute("error", e.getMessage());
             return mostrarFormulario(actividad, model);
+        }
+    }
+
+    // GET /actividades/5/inscriptos -> inscriptos activos y cupo disponible (RF7)
+    @GetMapping("/{id}/inscriptos")
+    public String inscriptos(@PathVariable Long id, Model model, RedirectAttributes redirect) {
+        try {
+            model.addAttribute("actividad", actividadService.buscarPorId(id));
+            model.addAttribute("inscripciones", inscripcionService.listarActivasDeActividad(id));
+            return "actividades/inscriptos";
+        } catch (RecursoNoEncontradoException e) {
+            redirect.addFlashAttribute("error", e.getMessage());
+            return "redirect:/actividades";
         }
     }
 

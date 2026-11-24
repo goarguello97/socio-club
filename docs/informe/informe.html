@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>TPI SocioClub · Informe técnico</title>
+<style>
+@font-face { font-family: "Archivo Narrow"; src: url("../../sitio-publico/fonts/archivo-narrow-variable.woff2"); font-weight: 400 700; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("../../sitio-publico/fonts/atkinson-400.woff2"); font-weight: 400; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("../../sitio-publico/fonts/atkinson-700.woff2"); font-weight: 700; }
+
+@page { size: A4; margin: 18mm 17mm 18mm 17mm; }
+@page :first { margin: 0; }
+
+:root { --pared: #2e6b45; --pano: #1c2620; --amarilla: #e8b931; --letra: #f5f3ec; --tinta: #1c2620; --suave: #4b5a50; --linea: #d5dbd7; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Atkinson Hyperlegible", sans-serif; font-size: 10.3pt; line-height: 1.5; color: var(--tinta); }
+
+.portada { height: 297mm; padding: 34mm 22mm 22mm; background: var(--pared); color: var(--letra); display: flex; flex-direction: column; break-after: page; }
+.portada img { width: 34mm; }
+.portada .materia { margin-top: 14mm; font-family: "Archivo Narrow"; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 11pt; color: var(--amarilla); }
+.portada h1 { font-family: "Archivo Narrow"; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; font-size: 46pt; line-height: 1; margin: 4mm 0 4mm; }
+.portada .sub { font-size: 15pt; margin: 0; }
+.portada .repo { margin-top: 14mm; padding: 6mm 7mm; background: var(--pano); border: 3mm solid #c3c9cb; }
+.portada .repo span { display: block; font-family: "Archivo Narrow"; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: 9pt; color: var(--amarilla); }
+.portada .repo a { color: var(--letra); font-size: 15pt; font-weight: 700; text-decoration: none; }
+.portada table { margin-top: auto; width: 100%; border-collapse: collapse; font-size: 10.5pt; }
+.portada td { padding: 2mm 0; border-bottom: .3mm solid rgba(245,243,236,.35); color: var(--letra); }
+.portada td:first-child { width: 42mm; color: #e1eee4; }
+
+h2 { font-family: "Archivo Narrow"; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; font-size: 17pt; color: var(--pared);
+     margin: 0 0 3mm; padding-bottom: 1.5mm; border-bottom: .8mm solid var(--amarilla); break-after: avoid; }
+h3 { font-family: "Archivo Narrow"; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; font-size: 12pt; margin: 5mm 0 1.5mm; break-after: avoid; }
+section { margin-bottom: 7mm; }
+section.nueva { break-before: page; }
+p { margin: 0 0 2.5mm; }
+ul, ol { margin: 0 0 3mm; padding-left: 5.5mm; }
+li { margin-bottom: 1mm; }
+code { font-family: Consolas, monospace; font-size: 8.8pt; background: #eef1ef; padding: .2mm 1mm; }
+table.datos { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 9pt; }
+table.datos th { background: var(--pano); color: var(--letra); text-align: left; padding: 1.6mm 2mm; font-family: "Archivo Narrow"; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; font-size: 8.5pt; }
+table.datos td { padding: 1.6mm 2mm; border-bottom: .3mm solid var(--linea); vertical-align: top; }
+table.datos tr { break-inside: avoid; }
+table.datos tr:nth-child(even) td { background: #f3f6f4; }
+.ok { color: #1e6b3a; font-weight: 700; }
+figure { margin: 3mm 0 4mm; break-inside: avoid; }
+figure img { width: 100%; border: .3mm solid var(--linea); }
+figcaption { font-size: 8.5pt; color: var(--suave); margin-top: 1mm; }
+.dos { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.tres { display: grid; grid-template-columns: 1.9fr 1fr; gap: 5mm; align-items: start; }
+.nota { padding: 2.5mm 4mm; background: #fdf6dd; border-left: 1.2mm solid var(--amarilla); margin: 3mm 0; }
+.diagrama { width: 100%; }
+.resumen-pruebas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 2mm 0 4mm; }
+.resumen-pruebas div { background: var(--pano); color: var(--letra); padding: 3mm; }
+.resumen-pruebas b { display: block; font-family: "Archivo Narrow"; font-size: 20pt; color: var(--amarilla); line-height: 1.1; }
+.resumen-pruebas span { font-size: 8.5pt; }
+</style>
+</head>
+<body>
+
+<!-- Portada: la primera página lleva el enlace al repositorio -->
+<section class="portada">
+    <img src="../../sitio-publico/img/escudo.svg" alt="Escudo del club">
+    <p class="materia">Taller de Construcción de Software · Trabajo Práctico Integrador</p>
+    <h1>SocioClub</h1>
+    <p class="sub">Sistema web de socios, actividades e inscripciones para el Club Social y Deportivo Los Algarrobos (Córdoba)</p>
+    <div class="repo">
+        <span>Repositorio</span>
+        <a href="https://github.com/goarguello97/socio-club">https://github.com/goarguello97/socio-club</a>
+    </div>
+    <table>
+        <tr><td>Universidad</td><td>Universidad Siglo 21</td></tr>
+        <tr><td>Grupo</td><td>N.º ___</td></tr>
+        <tr><td>Integrantes</td><td>_______________ · _______________ · _______________ · _______________ · _______________</td></tr>
+        <tr><td>Fecha</td><td>Noviembre de 2026</td></tr>
+    </table>
+</section>
+
+<section>
+    <h2>1. Descripción de la solución</h2>
+    <p>El Club Social y Deportivo Los Algarrobos tiene alrededor de 650 socios y 8 actividades: fútbol infantil, vóley, básquet, natación, patín artístico, ajedrez, funcional y yoga. La gestión se hacía en un cuaderno y una planilla de Excel, y los horarios se avisaban por WhatsApp. Eso generaba <b>cupos excedidos</b> (52 chicos anotados en fútbol infantil con lugar para 40), <b>inscripciones duplicadas</b>, <b>edades fuera de rango</b>, <b>socios morosos que se seguían anotando</b> y vecinos que no sabían qué actividades había.</p>
+    <p>SocioClub resuelve los tres pedidos de la Comisión Directiva con <b>tres caras sobre una sola base de datos y un solo backend</b>:</p>
+    <table class="datos">
+        <tr><th>Componente</th><th>Para quién</th><th>Qué hace</th><th>Tecnología</th></tr>
+        <tr><td><b>A. Sitio público</b></td><td>Vecinos</td><td>Catálogo con día, horario, edades, profe y cuota; filtro por edad y disciplina; preinscripción validada</td><td>HTML5, CSS3, JavaScript</td></tr>
+        <tr><td><b>B. Sistema de secretaría</b></td><td>Secretaría</td><td>ABM de actividades, socios con paginación y búsqueda, inscripciones con las reglas, inscriptos y bajas</td><td>Spring Boot, Spring MVC, Thymeleaf, Spring Data JPA, MySQL</td></tr>
+        <tr><td><b>C. API REST</b></td><td>App de socios</td><td>Endpoints del Anexo A con JSON y códigos 200, 201, 204, 404 y 409</td><td>Spring Boot <code>@RestController</code></td></tr>
+        <tr><td><b>D. App "Mi Club"</b></td><td>Socios</td><td>Ingreso con DNI, catálogo, inscripción, baja y cuota mensual estimada</td><td>React (create-react-app), React Router, Axios, Context</td></tr>
+        <tr><td><b>E. Pruebas</b></td><td>Equipo</td><td>Pruebas unitarias, de componente, de la API y de sistema</td><td>Jest, React Testing Library, JUnit, Postman</td></tr>
+    </table>
+    <p>Se usaron solo las tecnologías de la materia: sin Lombok, Spring Security, Vite, Tailwind ni Redux. El backend es Spring Boot 3.5 con Java 17, la base es MySQL 8 en Docker y la app React se creó con create-react-app.</p>
+</section>
+
+<section>
+    <h2>2. Arquitectura</h2>
+    <svg class="diagrama" viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" font-family="Atkinson Hyperlegible, sans-serif" font-size="12">
+        <g fill="#2e6b45"><rect x="10" y="10" width="220" height="54" rx="3"/><rect x="250" y="10" width="220" height="54" rx="3"/><rect x="490" y="10" width="220" height="54" rx="3"/></g>
+        <g fill="#f5f3ec" text-anchor="middle" font-weight="700">
+            <text x="120" y="33">Navegador del vecino</text><text x="360" y="33">Navegador de secretaría</text><text x="600" y="33">Celular del socio</text>
+        </g>
+        <g fill="#e1eee4" text-anchor="middle" font-size="11">
+            <text x="120" y="51">Sitio público · HTML + CSS + JS</text><text x="360" y="51">Vistas Thymeleaf (HTML)</text><text x="600" y="51">App React · Axios (JSON)</text>
+        </g>
+        <g stroke="#1c2620" stroke-width="2" marker-end="url(#f)"><line x1="360" y1="64" x2="360" y2="98"/><line x1="600" y1="64" x2="600" y2="98"/></g>
+        <defs><marker id="f" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1c2620"/></marker></defs>
+        <rect x="250" y="100" width="460" height="150" fill="#1c2620" rx="3"/>
+        <text x="480" y="120" fill="#e8b931" text-anchor="middle" font-weight="700" font-size="12">BACKEND SPRING BOOT · un solo proyecto Maven</text>
+        <g fill="#f5f3ec"><rect x="266" y="130" width="210" height="24" rx="2"/><rect x="486" y="130" width="210" height="24" rx="2"/>
+            <rect x="266" y="162" width="430" height="24" rx="2"/><rect x="266" y="194" width="430" height="20" rx="2"/><rect x="266" y="220" width="430" height="20" rx="2"/></g>
+        <g fill="#1c2620" text-anchor="middle" font-size="11">
+            <text x="371" y="146">Controladores MVC (Thymeleaf)</text><text x="591" y="146">Controladores REST (/api)</text>
+            <text x="481" y="178" font-weight="700">SERVICIO · reglas de negocio RN1 a RN5 (una sola vez)</text>
+            <text x="481" y="208">REPOSITORIO · Spring Data JPA (métodos derivados y @Query)</text>
+            <text x="481" y="234">MODELO · entidades JPA Socio, Actividad, Inscripcion</text>
+        </g>
+        <line x1="480" y1="250" x2="480" y2="268" stroke="#1c2620" stroke-width="2" marker-end="url(#f)"/>
+        <rect x="380" y="270" width="200" height="26" fill="#e8b931" rx="3"/>
+        <text x="480" y="288" text-anchor="middle" font-weight="700" fill="#1c2620">MySQL 8 en Docker</text>
+        <text x="120" y="120" text-anchor="middle" fill="#4b5a50" font-size="11">Archivos estáticos:</text>
+        <text x="120" y="136" text-anchor="middle" fill="#4b5a50" font-size="11">el catálogo se genera en el</text>
+        <text x="120" y="152" text-anchor="middle" fill="#4b5a50" font-size="11">navegador desde un arreglo</text>
+    </svg>
+    <p><b>Idea clave:</b> los controladores Thymeleaf (B) y los REST (C) llaman al mismo <code>InscripcionService</code>. Las reglas se escriben una vez y se validan igual entre por donde entre la inscripción. Ningún controlador accede directamente a un repositorio, y la inyección de dependencias se hace por constructor.</p>
+    <h3>Recorrido de una inscripción desde la app</h3>
+    <ol>
+        <li><b>React:</b> el socio toca "Inscribirme" en <code>DetalleActividad</code>, que llama a <code>inscribir(socioId, actividadId)</code> de <code>servicios/api.js</code>.</li>
+        <li><b>Axios</b> hace <code>POST /api/inscripciones</code> con <code>{"socioId": 20, "actividadId": 8}</code>. El backend lo permite por la configuración de CORS para <code>localhost:3000</code>.</li>
+        <li><b>Controlador REST:</b> <code>InscripcionRestController</code> recibe el cuerpo con <code>@RequestBody</code> y llama al servicio.</li>
+        <li><b>Servicio:</b> <code>InscripcionService.inscribir</code> busca el socio y la actividad y aplica RN1 a RN5. Si una falla, lanza <code>ReglaNegocioException</code> y <code>ApiExceptionHandler</code> responde <b>409</b> con <code>{"error", "regla"}</code>.</li>
+        <li><b>Repositorio y MySQL:</b> <code>contarActivasPorActividad</code> (<code>@Query</code>) y los métodos derivados consultan la base; <code>save</code> inserta la fila en <code>inscripciones</code>.</li>
+        <li><b>Respuesta:</b> 201 con un <code>InscripcionDTO</code>. React guarda la actividad actualizada en el estado y vuelve a dibujar el cupo disponible.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>3. Modelo de datos</h2>
+    <svg class="diagrama" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" font-family="Atkinson Hyperlegible, sans-serif" font-size="11">
+        <defs><marker id="g" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1c2620"/></marker></defs>
+        <g><rect x="10" y="10" width="200" height="200" fill="#f5f3ec" stroke="#1c2620" stroke-width="1.5"/><rect x="10" y="10" width="200" height="26" fill="#2e6b45"/>
+            <text x="110" y="28" fill="#f5f3ec" text-anchor="middle" font-weight="700" font-size="12">socios</text>
+            <g fill="#1c2620"><text x="20" y="54" font-weight="700">id (PK)</text><text x="20" y="72">dni (único)</text><text x="20" y="90">nombre</text><text x="20" y="108">apellido</text><text x="20" y="126">fecha_nacimiento</text><text x="20" y="144">email</text><text x="20" y="162">telefono</text><text x="20" y="180">estado_cuota</text><text x="20" y="198" fill="#4b5a50">AL_DIA / MOROSO</text></g></g>
+        <g><rect x="260" y="40" width="200" height="140" fill="#f5f3ec" stroke="#1c2620" stroke-width="1.5"/><rect x="260" y="40" width="200" height="26" fill="#2e6b45"/>
+            <text x="360" y="58" fill="#f5f3ec" text-anchor="middle" font-weight="700" font-size="12">inscripciones</text>
+            <g fill="#1c2620"><text x="270" y="84" font-weight="700">id (PK)</text><text x="270" y="102">fecha_inscripcion</text><text x="270" y="120">estado (ACTIVA / BAJA)</text><text x="270" y="138" font-weight="700">socio_id (FK)</text><text x="270" y="156" font-weight="700">actividad_id (FK)</text></g></g>
+        <g><rect x="510" y="10" width="200" height="200" fill="#f5f3ec" stroke="#1c2620" stroke-width="1.5"/><rect x="510" y="10" width="200" height="26" fill="#2e6b45"/>
+            <text x="610" y="28" fill="#f5f3ec" text-anchor="middle" font-weight="700" font-size="12">actividades</text>
+            <g fill="#1c2620"><text x="520" y="54" font-weight="700">id (PK)</text><text x="520" y="72">nombre · disciplina</text><text x="520" y="90">profesor</text><text x="520" y="108">dias · horario</text><text x="520" y="126">edad_minima · edad_maxima</text><text x="520" y="144">cupo_maximo</text><text x="520" y="162">cuota_mensual</text></g></g>
+        <g stroke="#1c2620" stroke-width="1.5"><line x1="210" y1="110" x2="260" y2="110"/><line x1="460" y1="110" x2="510" y2="110"/></g>
+        <g fill="#c0392b" font-weight="700" font-size="12"><text x="216" y="104">1</text><text x="246" y="104">N</text><text x="466" y="104">N</text><text x="496" y="104">1</text></g>
+    </svg>
+    <div class="dos">
+        <div>
+            <h3>Entidades JPA</h3>
+            <ul>
+                <li><code>Socio</code> tiene <code>@OneToMany(mappedBy = "socio")</code> hacia sus inscripciones, y <code>getEdad()</code> calcula la edad a la fecha de hoy.</li>
+                <li><code>Actividad</code> tiene <code>@OneToMany(mappedBy = "actividad")</code>, el método <code>esAptaParaEdad(edad)</code> y un campo <code>@Transient cupoDisponible</code> que calcula el servicio.</li>
+                <li><code>Inscripcion</code> es el lado dueño: dos <code>@ManyToOne</code> con <code>@JoinColumn</code> (<code>socio_id</code> y <code>actividad_id</code>).</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Repositorios</h3>
+            <ul>
+                <li>Métodos derivados: <code>findByApellidoContainingIgnoreCase(apellido, Pageable)</code>, <code>findByDni</code>, <code>findByDisciplinaOrderByNombreAsc</code>, <code>existsBySocioIdAndActividadIdAndEstado</code>, <code>countBySocioIdAndEstado</code>.</li>
+                <li><code>@Query</code>: <code>contarActivasPorActividad</code> (RN1 y cupo disponible) y <code>findDisciplinas</code>.</li>
+                <li>Paginación con <code>Pageable</code> en el listado de socios (8 por página).</li>
+            </ul>
+        </div>
+    </div>
+    <p>La baja es lógica: la inscripción pasa a estado BAJA y no se borra, así queda el historial. Las tablas y los datos iniciales los crea <code>database/socioclub.sql</code>: las 8 actividades del enunciado y 20 socios pensados para demostrar cada regla (2 morosos, una socia con 3 actividades y Yoga con 14 de 15 lugares ocupados).</p>
+
+    <h2 style="margin-top:6mm">4. Reglas de negocio</h2>
+    <table class="datos">
+        <tr><th>Regla</th><th>Qué controla</th><th>Mensaje cuando falla</th><th>Dónde está</th></tr>
+        <tr><td><b>RN1</b></td><td>Inscripciones activas no superan el cupo</td><td>La actividad no tiene cupo disponible</td><td><code>InscripcionService</code></td></tr>
+        <tr><td><b>RN2</b></td><td>Sin inscripciones activas duplicadas</td><td>El socio ya está inscripto en esta actividad</td><td><code>InscripcionService</code></td></tr>
+        <tr><td><b>RN3</b></td><td>Edad dentro del rango de la actividad</td><td>La actividad es para edades de X a Y años y el socio tiene Z</td><td><code>InscripcionService</code></td></tr>
+        <tr><td><b>RN4</b></td><td>Socio moroso no se inscribe</td><td>Debe regularizar su cuota en secretaría</td><td><code>InscripcionService</code></td></tr>
+        <tr><td><b>RN5</b></td><td>Máximo 3 actividades activas</td><td>Alcanzó el máximo de 3 actividades</td><td><code>InscripcionService.MAXIMO_ACTIVIDADES</code></td></tr>
+        <tr><td><b>RN6</b></td><td>Cuota con 10 % de descuento con 2 actividades y 15 % con 3</td><td>—</td><td><code>utils/calcularCuotaMensual.js</code></td></tr>
+        <tr><td><b>RN7</b></td><td>DNI de 7 u 8 dígitos sin puntos</td><td>El DNI va sin puntos: 7 u 8 números</td><td>Sitio, app (<code>esDniValido</code>) y <code>SocioService</code></td></tr>
+    </table>
+    <p>Las reglas se controlan en el orden de la consigna (RN1 a RN5) y se informa la primera que falla. El máximo de actividades es una constante, así que pasarlo de 3 a 4 se hace en una sola línea.</p>
+</section>
+
+<section>
+    <h2>5. API REST</h2>
+    <table class="datos">
+        <tr><th>Verbo</th><th>Ruta</th><th>Qué hace</th><th>Respuestas</th></tr>
+        <tr><td>GET</td><td><code>/api/actividades</code></td><td>Lista con cupo disponible. Acepta <code>?disciplina=Fútbol</code></td><td>200</td></tr>
+        <tr><td>GET</td><td><code>/api/actividades/{id}</code></td><td>Detalle de una actividad</td><td>200 · 404</td></tr>
+        <tr><td>POST</td><td><code>/api/actividades</code></td><td>Crea una actividad (con encabezado Location)</td><td>201 · 400</td></tr>
+        <tr><td>PUT</td><td><code>/api/actividades/{id}</code></td><td>Modifica una actividad</td><td>200 · 404 · 409</td></tr>
+        <tr><td>DELETE</td><td><code>/api/actividades/{id}</code></td><td>Elimina si no tiene inscriptos activos</td><td>204 · 404 · 409</td></tr>
+        <tr><td>GET</td><td><code>/api/socios/dni/{dni}</code></td><td>Busca un socio por DNI (ingreso a la app)</td><td>200 · 404</td></tr>
+        <tr><td>GET</td><td><code>/api/socios/{id}/inscripciones</code></td><td>Inscripciones ACTIVAS del socio</td><td>200 · 404</td></tr>
+        <tr><td>POST</td><td><code>/api/inscripciones</code></td><td>Inscribe: <code>{"socioId", "actividadId"}</code>. Aplica RN1 a RN5</td><td>201 · 404 · 409</td></tr>
+        <tr><td>PUT</td><td><code>/api/inscripciones/{id}/baja</code></td><td>Baja lógica (estado BAJA)</td><td>200 · 404</td></tr>
+    </table>
+    <p><b>Por qué es REST:</b> expone recursos identificados por URL (actividades, socios, inscripciones), usa los verbos HTTP según la operación (GET consulta, POST crea, PUT modifica, DELETE elimina), no guarda estado de sesión entre pedidos y representa los datos en JSON. A diferencia de SOAP, no necesita un contrato WSDL ni mensajes XML con sobre.</p>
+    <h3>Errores</h3>
+    <p><code>ApiExceptionHandler</code>, un <code>@RestControllerAdvice</code> limitado a los controladores REST, convierte las excepciones del servicio en respuestas: <code>RecursoNoEncontradoException</code> responde 404 y <code>ReglaNegocioException</code> responde 409, con este cuerpo:</p>
+    <p><code>{ "error": "La actividad no tiene cupo disponible", "regla": "RN1" }</code></p>
+    <p>Los datos mal cargados, como una edad mínima mayor que la máxima, responden 400. Las vistas Thymeleaf atrapan las mismas excepciones y muestran el mensaje en pantalla.</p>
+    <h3>El ciclo infinito en el JSON</h3>
+    <p>Al devolver las entidades directamente, Jackson recorre <code>Socio → inscripciones → Inscripcion → socio → inscripciones…</code> sin fin. Lo resolvimos con <b>DTOs</b>: <code>ActividadDTO</code>, <code>SocioDTO</code> e <code>InscripcionDTO</code> copian solo los datos que necesita la app. <code>InscripcionDTO</code> lleva el <code>socioId</code> en lugar del socio completo, y ninguna clase incluye la lista de vuelta. Así la API no depende de cómo están mapeadas las entidades.</p>
+    <h3>CORS</h3>
+    <p>La app corre en <code>localhost:3000</code> y la API en <code>localhost:8080</code>: son orígenes distintos, y por la política de mismo origen el navegador bloquea las respuestas si el servidor no lo autoriza. <code>CorsConfig</code> habilita <code>/api/**</code> para <code>http://localhost:3000</code> con GET, POST, PUT y DELETE.</p>
+</section>
+
+<section class="nueva">
+    <h2>6. Las tres caras del sistema</h2>
+    <h3>Sitio público</h3>
+    <figure><img style="height:78mm;object-fit:cover;object-position:top" src="img/sitio-inicio.png" alt="Sitio público con la edad 10"><figcaption>Inicio con la edad 10: la cartelera se rearma, suben las actividades que corresponden y el resto queda con letra gastada. El catálogo se genera con la clase <code>Actividad</code> y se filtra con <code>addEventListener</code>.</figcaption></figure>
+    <h3>Sistema de secretaría</h3>
+    <div class="dos">
+        <figure><img src="img/secretaria-socios.png" alt="Listado de socios"><figcaption>Socios con búsqueda por apellido y paginación (<code>Pageable</code>).</figcaption></figure>
+        <figure><img src="img/secretaria-rn1.png" alt="Inscripción rechazada por RN1"><figcaption>Inscripción rechazada por RN1: Yoga sin cupo.</figcaption></figure>
+    </div>
+    <div class="dos">
+        <figure><img src="img/secretaria-actividades.png" alt="Actividades con cupo"><figcaption>ABM de actividades con cupo disponible.</figcaption></figure>
+        <figure><img src="img/secretaria-inscriptos.png" alt="Inscriptos de Yoga"><figcaption>Inscriptos activos de una actividad, con baja lógica.</figcaption></figure>
+    </div>
+</section>
+
+<section>
+    <h3>App "Mi Club"</h3>
+    <div class="tres">
+        <div>
+            <figure><img src="img/app-catalogo.png" alt="Catálogo de la app"><figcaption>Catálogo: <code>TarjetaActividad</code> recibe la actividad por props, avisa si no corresponde a la edad y se apaga sin cupo.</figcaption></figure>
+            <figure><img src="img/app-mis-actividades.png" alt="Mis actividades"><figcaption>Mis actividades con <code>ResumenCuota</code>: 3 actividades, 15 % de bonificación (RN6).</figcaption></figure>
+        </div>
+        <figure><img style="height:118mm;object-fit:cover;object-position:top" src="img/app-celular.png" alt="App en el celular"><figcaption>La app en el celular: una columna, botones de 44 px.</figcaption></figure>
+    </div>
+    <ul>
+        <li>Cuatro rutas con <code>BrowserRouter</code>: <code>/</code> (ingreso con DNI), <code>/actividades</code>, <code>/actividades/:id</code> y <code>/mis-actividades</code>.</li>
+        <li>Solo componentes funcionales: <code>Encabezado</code>, <code>Pie</code>, <code>Ingreso</code>, <code>ListaActividades</code>, <code>TarjetaActividad</code>, <code>DetalleActividad</code>, <code>MisActividades</code>, <code>ResumenCuota</code> y <code>RutaPrivada</code>. Llevan PropTypes en <code>TarjetaActividad</code> y <code>ResumenCuota</code>.</li>
+        <li>El socio que ingresó se comparte con <code>createContext</code> / <code>useContext</code> (<code>SocioContext</code>), y no se pasa por props. Se guarda en <code>sessionStorage</code> para no perderlo al recargar.</li>
+        <li><code>useEffect</code> con <code>[]</code> carga las disciplinas una vez; con <code>[disciplina]</code> vuelve a pedir el catálogo cada vez que cambia el filtro.</li>
+        <li>Toda la comunicación pasa por <code>src/servicios/api.js</code> (Axios). Los mensajes 409 del backend se muestran tal cual al socio.</li>
+    </ul>
+</section>
+
+<section class="nueva">
+    <h2>7. Resultados de las pruebas</h2>
+    <div class="resumen-pruebas">
+        <div><b>18 / 18</b><span>Jest y React Testing Library</span></div>
+        <div><b>8 / 8</b><span>JUnit (InscripcionService)</span></div>
+        <div><b>44 / 44</b><span>Verificaciones en 25 pedidos de Postman</span></div>
+        <div><b>6 / 6</b><span>Casos de la prueba de sistema</span></div>
+    </div>
+    <h3>Pruebas unitarias con Jest (14) y de componente (4)</h3>
+    <table class="datos">
+        <tr><th>Archivo</th><th>Casos</th><th>Resultado</th></tr>
+        <tr><td><code>calcularCuotaMensual.test.js</code> (RN6)</td><td>0 actividades → $0 · 1 → $17.000 · 2 → $38.700 (−10 %) · 3 → $55.250 (−15 %) · cuota como texto · sin arreglo · porcentajes</td><td class="ok">7 pasan</td></tr>
+        <tr><td><code>esDniValido.test.js</code> (RN7)</td><td>8 dígitos ✓ · 7 dígitos ✓ · con puntos ✗ · con letras ✗ · 6 dígitos ✗ · 9 dígitos ✗ · vacío, espacios, número y null ✗</td><td class="ok">7 pasan</td></tr>
+        <tr><td><code>TarjetaActividad.test.js</code> (React Testing Library: <code>render</code>, <code>screen</code>, <code>fireEvent</code>)</td><td>Muestra el nombre · con cupo 0 muestra "Sin cupo" y el botón queda deshabilitado · con lugar el clic avisa la actividad elegida · aviso de edad</td><td class="ok">4 pasan</td></tr>
+    </table>
+    <h3>Pruebas del backend con JUnit y Mockito</h3>
+    <p><code>InscripcionServiceTest</code> reemplaza los repositorios por mocks, así que no necesita la base: inscripción exitosa, RN1, RN2, RN3, RN4, RN5, socio inexistente (404) y baja lógica. <span class="ok">8 pasan.</span></p>
+    <h3>Pruebas de la API con Postman</h3>
+    <p>La colección <code>postman/SocioClub.postman_collection.json</code> tiene 25 pedidos, en tres carpetas, con 44 verificaciones (código de estado, contenido y mensaje de cada regla). Cubre todos los endpoints del Anexo A y los errores: 404 en cada recurso, 400 por datos inválidos, 409 al eliminar una actividad con inscriptos y 409 de RN1 a RN5. Corrida con Newman sobre la base recién cargada: <span class="ok">25 pedidos, 44 verificaciones, 0 fallas</span>.</p>
+    <h3>Prueba de sistema (de punta a punta)</h3>
+    <p>Los 6 casos se ejecutaron en las pantallas reales, con la base recién cargada y en este orden. Se alternó entre la app y el sistema de secretaría para mostrar que las dos usan el mismo servicio.</p>
+    <table class="datos">
+        <tr><th>Caso</th><th>Pasos</th><th>Resultado esperado</th><th>Resultado obtenido</th></tr>
+        <tr><td><b>1. Inscripción exitosa</b></td><td>App: ingresar con DNI 45901234 (Nicolás Vega, 22 años, al día) → Yoga → Inscribirme</td><td>Se inscribe y Yoga queda sin cupo</td><td class="ok">"¡Listo! Quedaste inscripto en Yoga."</td></tr>
+        <tr><td><b>2. RN1 · cupo</b></td><td>Secretaría: Inscribir → Camila Ortiz → Yoga</td><td>Rechazo por falta de cupo</td><td class="ok">"RN1: La actividad no tiene cupo disponible"</td></tr>
+        <tr><td><b>3. RN2 · duplicado</b></td><td>Secretaría: Inscribir → Juan Pereyra → Vóley mixto (ya inscripto)</td><td>Rechazo por duplicado</td><td class="ok">"RN2: El socio ya está inscripto en esta actividad"</td></tr>
+        <tr><td><b>4. RN3 · edad</b></td><td>App: DNI 52345678 (Mateo Castro, 14 años) → Fútbol infantil (6 a 12) → Inscribirme</td><td>Rechazo indicando el rango</td><td class="ok">"La actividad es para edades de 6 a 12 años y el socio tiene 14"</td></tr>
+        <tr><td><b>5. RN4 · moroso</b></td><td>App: DNI 38901234 (Marcos López, moroso) → Ajedrez → Inscribirme</td><td>Rechazo por cuota impaga</td><td class="ok">"Debe regularizar su cuota en secretaría"</td></tr>
+        <tr><td><b>6. RN5 · máximo</b></td><td>Secretaría: Inscribir → Lucía Gómez (3 actividades) → Ajedrez</td><td>Rechazo por máximo de actividades</td><td class="ok">"RN5: Alcanzó el máximo de 3 actividades"</td></tr>
+    </table>
+</section>
+
+<section>
+    <h2>8. Conclusiones del equipo</h2>
+    <ul>
+        <li><b>Separar en capas pagó en serio.</b> Cuando sumamos la API REST no tuvimos que reescribir ninguna regla: los controladores nuevos llaman al mismo servicio que Thymeleaf. La prueba de sistema lo muestra al alternar entre la app y la secretaría.</li>
+        <li><b>Los datos de prueba se diseñan.</b> Cargar socios pensados para cada regla (un moroso, una socia con 3 actividades, Yoga casi lleno) hizo que cada caso se pudiera demostrar en minutos, tanto en las pruebas como en la exposición.</li>
+        <li><b>Las pruebas encontraron errores reales.</b> La colección de Postman detectó que la inscripción devolvía el cupo disponible vacío, y la revisión del sitio en un celular real encontró tarjetas que se salían del borde. Ninguno de los dos se veía mirando el código.</li>
+        <li><b>La IA ayudó, pero hubo que controlarla.</b> Propuso herramientas fuera de la materia y cometió errores que tuvimos que detectar, entender y corregir. Están registrados en la bitácora.</li>
+        <li><b>Qué mejoraríamos:</b> llevar al sistema de secretaría la misma identidad visual del sitio, guardar las preinscripciones del sitio en el backend y agregar autenticación para la secretaría cuando la materia la incluya.</li>
+    </ul>
+</section>
+
+<section class="nueva">
+    <h2>9. Bitácora de uso de IA</h2>
+    <p>Usamos Claude (Anthropic) como asistente durante todo el desarrollo. En cada entrada figura qué le pedimos, qué devolvió y qué tuvimos que corregir. Todos los cambios fueron revisados por el grupo.</p>
+    <table class="datos">
+        <tr><th>N.º</th><th>Parte</th><th>Qué le pedimos a la IA</th><th>Qué nos devolvió</th><th>Qué estaba mal / qué cambiamos y por qué</th></tr>
+        <tr><td>1</td><td>B</td><td>"Generá el proyecto Maven con Spring Initializr con Web, Thymeleaf, JPA y MySQL."</td><td>Un proyecto con Spring Boot 4 (<code>spring-boot-starter-webmvc</code>, Jackson 3), la única versión que ofrece hoy Initializr.</td><td>Las lecturas usan Spring Boot 3 y <code>spring-boot-starter-web</code>. Pasamos a <b>3.5.16</b>, la última 3.x, para respetar lo visto en la materia y usar las anotaciones de Jackson 2.</td></tr>
+        <tr><td>2</td><td>B</td><td>"En el listado de actividades, pedí confirmación antes de eliminar mostrando el nombre."</td><td>Un <code>th:attr="onsubmit=…"</code> con el nombre de la actividad adentro.</td><td>Thymeleaf bloquea por seguridad las expresiones dentro de atributos de eventos y la página fallaba. Dejamos un mensaje de confirmación fijo.</td></tr>
+        <tr><td>3</td><td>B</td><td>"Después de guardar, volvé al listado con un mensaje de éxito."</td><td><code>redirect:</code> con <code>RedirectAttributes</code> (mensajes flash).</td><td>En la primera redirección la URL quedaba con <code>;jsessionid=…</code>. Configuramos <code>server.servlet.session.tracking-modes=cookie</code>.</td></tr>
+        <tr><td>4</td><td>A</td><td>"Armá las fichas del catálogo de actividades siguiendo el diseño de la cartelera."</td><td>Tarjetas opacas idénticas, con ícono, título y lista.</td><td>Era la plantilla genérica de tarjetas que el diseño rechazaba. Las rehicimos como letras sobre las ranuras del paño, con un riel entre actividades.</td></tr>
+        <tr><td>5</td><td>A</td><td>"Verificá que el sitio se vea bien en celular."</td><td>Capturas "a 390 px" tomadas con Edge sin interfaz.</td><td>Edge en Windows no dibuja por debajo de unos 500 px: las capturas eran inválidas. Con capturas reales aparecieron dos errores: tarjetas que se salían 3 px (lo corregimos con <code>minmax(0, 1fr)</code>) y un botón de 26 px (llevamos el área táctil a 44 px).</td></tr>
+        <tr><td>6</td><td>C</td><td>"Implementá los endpoints del Anexo A reutilizando el servicio."</td><td>Controladores REST con DTOs y manejo de errores.</td><td>La colección de Postman detectó que <code>POST /api/inscripciones</code> devolvía <code>cupoDisponible: null</code>: el cupo es un campo calculado y solo lo completaba <code>ActividadService</code>. Lo calculamos también en <code>InscripcionService</code>.</td></tr>
+        <tr><td>7</td><td>C / E</td><td>"Reiniciá la base y levantá todo para correr las pruebas."</td><td><code>docker compose up -d</code> y enseguida el backend.</td><td>El backend fallaba con <code>Communications link failure</code> porque MySQL todavía estaba cargando el script. Agregamos un healthcheck al <code>docker-compose.yml</code> y usamos <code>up -d --wait</code>.</td></tr>
+        <tr><td>8</td><td>D</td><td>"Creá <code>TarjetaActividad</code> con PropTypes y un valor por defecto para la prop opcional."</td><td><code>TarjetaActividad.defaultProps = {…}</code>.</td><td>React 19, que instala create-react-app hoy, ya no aplica <code>defaultProps</code> en componentes funcionales. Lo cambiamos por un valor por defecto en el parámetro: <code>{ esParaMiEdad = true }</code>.</td></tr>
+    </table>
+    <div class="nota">Cómo trabajamos con la IA: después de cada cambio le pedimos que explique el código línea por línea, y lo probamos nosotros en la base real antes de aceptarlo. Las entradas 5, 6 y 7 son errores que encontraron las pruebas y no la lectura del código.</div>
+</section>
+
+</body>
+</html>

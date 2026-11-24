@@ -1,0 +1,15 @@
+{
+  "short_name": "Mi Club",
+  "name": "Mi Club · Club Los Algarrobos",
+  "icons": [
+    {
+      "src": "escudo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#2e6b45",
+  "background_color": "#2e6b45"
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Inscribir socio')}"></head>
+<body>
+
+<header th:replace="~{fragments/layout :: encabezado('inscripciones')}"></header>
+
+<main class="contenido contenido--angosto">
+    <h1>Inscribir socio a una actividad</h1>
+
+    <div th:replace="~{fragments/layout :: mensajes}"></div>
+
+    <form class="formulario" th:action="@{/inscripciones}" method="post">
+        <div class="campo">
+            <label for="socioId">Socio</label>
+            <select id="socioId" name="socioId" required>
+                <option value="">Elegí un socio</option>
+                <option th:each="s : ${socios}" th:value="${s.id}" th:selected="${s.id == socioId}"
+                        th:text="${s.nombreCompleto} + ' · DNI ' + ${s.dni} + ' · ' + ${s.edad} + ' años' + (${s.estadoCuota.name() == 'MOROSO'} ? ' · MOROSO' : '')">
+                    Gómez, Lucía · DNI 31456789 · 41 años
+                </option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="actividadId">Actividad</label>
+            <select id="actividadId" name="actividadId" required>
+                <option value="">Elegí una actividad</option>
+                <option th:each="a : ${actividades}" th:value="${a.id}" th:selected="${a.id == actividadId}"
+                        th:text="${a.nombre} + ' · ' + ${a.edadMinima} + ' a ' + ${a.edadMaxima} + ' años · ' + ${a.cupoDisponible} + ' lugares libres'">
+                    Yoga · 16 a 99 años · 1 lugar libre
+                </option>
+            </select>
+        </div>
+
+        <p class="ayuda">Al inscribir se controlan el cupo (RN1), que no esté ya inscripto (RN2), la edad (RN3),
+            la cuota al día (RN4) y el máximo de actividades (RN5).</p>
+
+        <div class="botones">
+            <a class="boton" th:href="@{/actividades}">Cancelar</a>
+            <button class="boton boton--primario" type="submit">Inscribir</button>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+
+</body>
+</html>

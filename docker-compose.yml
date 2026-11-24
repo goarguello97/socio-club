@@ -1,7 +1,7 @@
 # Base de datos MySQL del proyecto SocioClub.
 # Solo levanta MySQL: el backend se corre con Maven (mvnw spring-boot:run).
 #
-#   docker compose up -d      -> crea y arranca la base
+#   docker compose up -d --wait  -> crea y arranca la base, y espera a que esté lista
 #   docker compose down -v    -> la borra (la próxima vez se vuelve a cargar el script)
 name: socioclub
 
@@ -16,6 +16,12 @@ services:
       MYSQL_PASSWORD: socioclub123
       TZ: America/Argentina/Cordoba
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    # "docker compose up -d --wait" espera hasta que la base responde (incluida la carga del script)
+    healthcheck:
+      test: ["CMD", "mysql", "-usocioclub", "-psocioclub123", "socioclub", "-e", "SELECT 1 FROM inscripciones LIMIT 1"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
     ports:
       # 3307 en la PC para no chocar con un MySQL local que ya use el 3306
       - "3307:3306"

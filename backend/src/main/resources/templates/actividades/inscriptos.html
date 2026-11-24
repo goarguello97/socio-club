@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Inscriptos')}"></head>
+<body>
+
+<header th:replace="~{fragments/layout :: encabezado('actividades')}"></header>
+
+<main class="contenido">
+    <div class="titulo-seccion">
+        <div>
+            <h1 th:text="'Inscriptos en ' + ${actividad.nombre}">Inscriptos en Yoga</h1>
+            <p class="ayuda" th:text="${actividad.dias} + ' ' + ${actividad.horario} + ' · ' + ${actividad.edadMinima} + ' a ' + ${actividad.edadMaxima} + ' años · Profe: ' + ${actividad.profesor}">
+                Mar y Jue 09:00 · 16 a 99 años
+            </p>
+        </div>
+        <a class="boton boton--primario" th:href="@{/inscripciones/nueva(actividadId=${actividad.id})}">+ Inscribir socio</a>
+    </div>
+
+    <div th:replace="~{fragments/layout :: mensajes}"></div>
+
+    <p class="resumen-cupo">
+        <span class="cupo"
+              th:classappend="${actividad.cupoDisponible == 0 ? 'cupo--lleno' : (actividad.cupoDisponible <= 3 ? 'cupo--poco' : '')}"
+              th:text="${actividad.cupoDisponible} + ' lugares libres de ' + ${actividad.cupoMaximo}">1 lugar libre de 15</span>
+        <span th:text="${#lists.size(inscripciones)} + ' inscriptos activos'">14 inscriptos activos</span>
+    </p>
+
+    <p th:if="${#lists.isEmpty(inscripciones)}" class="vacio">Todavía no hay inscriptos en esta actividad.</p>
+
+    <div th:unless="${#lists.isEmpty(inscripciones)}" class="tabla-contenedor">
+        <table class="tabla">
+            <thead>
+            <tr>
+                <th>Socio</th>
+                <th>DNI</th>
+                <th class="num">Edad</th>
+                <th>Cuota</th>
+                <th>Inscripción</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i : ${inscripciones}">
+                <td><strong th:text="${i.socio.nombreCompleto}">Gómez, Lucía</strong></td>
+                <td th:text="${i.socio.dni}">31456789</td>
+                <td class="num" th:text="${i.socio.edad}">41</td>
+                <td><span class="estado" th:classappend="${i.socio.estadoCuota.name() == 'MOROSO'} ? 'estado--moroso'"
+                          th:text="${i.socio.estadoCuota.name() == 'MOROSO'} ? 'Moroso' : 'Al día'">Al día</span></td>
+                <td th:text="${#temporals.format(i.fechaInscripcion, 'dd/MM/yyyy')}">02/03/2026</td>
+                <td class="acciones">
+                    <form th:action="@{/inscripciones/{id}/baja(id=${i.id})}" method="post"
+                          onsubmit="return confirm('¿Dar de baja esta inscripción?')">
+                        <button class="boton boton--chico boton--peligro" type="submit">Dar de baja</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="volver"><a th:href="@{/actividades}">← Volver a actividades</a></p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+
+</body>
+</html>

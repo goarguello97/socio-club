@@ -1,0 +1,991 @@
+{
+  "info": {
+    "name": "SocioClub API",
+    "description": "API REST del Club Los Algarrobos. Correr con la base recién cargada (docker compose down -v && docker compose up -d): los pedidos van en orden y algunos dependen de los anteriores.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "nuevaActividadId",
+      "value": ""
+    },
+    {
+      "key": "inscripcionId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Actividades",
+      "item": [
+        {
+          "name": "Listar actividades",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Devuelve las 8 actividades con su cupo disponible\", () => {",
+                  "    const lista = pm.response.json();",
+                  "    pm.expect(lista).to.have.lengthOf(8);",
+                  "    lista.forEach(a => pm.expect(a).to.have.property(\"cupoDisponible\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actividades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Filtrar por disciplina",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Solo Yoga\", () => {",
+                  "    const lista = pm.response.json();",
+                  "    pm.expect(lista).to.have.lengthOf(1);",
+                  "    pm.expect(lista[0].nombre).to.eql(\"Yoga\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actividades?disciplina=Bienestar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades"
+              ],
+              "query": [
+                {
+                  "key": "disciplina",
+                  "value": "Bienestar"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Detalle de una actividad",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Yoga tiene 1 lugar libre de 15\", () => {",
+                  "    const a = pm.response.json();",
+                  "    pm.expect(a.nombre).to.eql(\"Yoga\");",
+                  "    pm.expect(a.cupoMaximo).to.eql(15);",
+                  "    pm.expect(a.cupoDisponible).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actividades/8",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades",
+                "8"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Detalle inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"Trae el mensaje de error\", () => pm.expect(pm.response.json().error).to.include(\"999\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actividades/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades",
+                "999"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear actividad (201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 201\", () => pm.response.to.have.status(201));",
+                  "const creada = pm.response.json();",
+                  "pm.collectionVariables.set(\"nuevaActividadId\", creada.id);",
+                  "pm.test(\"Devuelve la actividad creada con cupo completo libre\", () => {",
+                  "    pm.expect(creada.nombre).to.eql(\"Tenis de mesa\");",
+                  "    pm.expect(creada.cupoDisponible).to.eql(12);",
+                  "});",
+                  "pm.test(\"Encabezado Location\", () => pm.expect(pm.response.headers.get(\"Location\")).to.include(\"/api/actividades/\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actividades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Tenis de mesa\",\n  \"disciplina\": \"Tenis\",\n  \"profesor\": \"Marcelo Paz\",\n  \"dias\": \"Sáb\",\n  \"horario\": \"11:00\",\n  \"edadMinima\": 10,\n  \"edadMaxima\": 99,\n  \"cupoMaximo\": 12,\n  \"cuotaMensual\": 15000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Modificar actividad (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"El cupo quedó en 14\", () => pm.expect(pm.response.json().cupoMaximo).to.eql(14));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actividades/{{nuevaActividadId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades",
+                "{{nuevaActividadId}}"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Tenis de mesa\",\n  \"disciplina\": \"Tenis\",\n  \"profesor\": \"Marcelo Paz\",\n  \"dias\": \"Sáb\",\n  \"horario\": \"11:00\",\n  \"edadMinima\": 10,\n  \"edadMaxima\": 99,\n  \"cupoMaximo\": 14,\n  \"cuotaMensual\": 15000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Modificar inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actividades/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades",
+                "999"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Tenis de mesa\",\n  \"disciplina\": \"Tenis\",\n  \"profesor\": \"Marcelo Paz\",\n  \"dias\": \"Sáb\",\n  \"horario\": \"11:00\",\n  \"edadMinima\": 10,\n  \"edadMaxima\": 99,\n  \"cupoMaximo\": 12,\n  \"cuotaMensual\": 15000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Crear con datos inválidos (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"Explica el error de edades\", () => pm.expect(pm.response.json().error).to.include(\"edad mínima\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/actividades",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Tenis de mesa\",\n  \"disciplina\": \"Tenis\",\n  \"profesor\": \"Marcelo Paz\",\n  \"dias\": \"Sáb\",\n  \"horario\": \"11:00\",\n  \"edadMinima\": 50,\n  \"edadMaxima\": 10,\n  \"cupoMaximo\": 12,\n  \"cuotaMensual\": 15000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar actividad (204)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actividades/{{nuevaActividadId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades",
+                "{{nuevaActividadId}}"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Eliminar inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actividades/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades",
+                "999"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Eliminar con inscriptos activos (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"No deja borrar Yoga\", () => pm.expect(pm.response.json().error).to.include(\"inscriptos activos\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actividades/8",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "actividades",
+                "8"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Socios",
+      "item": [
+        {
+          "name": "Buscar socio por DNI",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Es Nicolás Vega, al día\", () => {",
+                  "    const s = pm.response.json();",
+                  "    pm.expect(s.apellido).to.eql(\"Vega\");",
+                  "    pm.expect(s.estadoCuota).to.eql(\"AL_DIA\");",
+                  "    pm.expect(s).to.not.have.property(\"inscripciones\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/dni/45901234",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "dni",
+                "45901234"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "DNI inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/dni/11111111",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "dni",
+                "11111111"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Inscripciones activas de un socio",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Lucía Gómez tiene 3 actividades activas\", () => {",
+                  "    const lista = pm.response.json();",
+                  "    pm.expect(lista).to.have.lengthOf(3);",
+                  "    lista.forEach(i => pm.expect(i.estado).to.eql(\"ACTIVA\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/1/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "1",
+                "inscripciones"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Inscripciones de socio inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/999/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "999",
+                "inscripciones"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inscripciones",
+      "item": [
+        {
+          "name": "Inscribir: caso exitoso (201)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 201\", () => pm.response.to.have.status(201));",
+                  "const i = pm.response.json();",
+                  "pm.collectionVariables.set(\"inscripcionId\", i.id);",
+                  "pm.test(\"Queda ACTIVA y Yoga se llena\", () => {",
+                  "    pm.expect(i.estado).to.eql(\"ACTIVA\");",
+                  "    pm.expect(i.actividad.nombre).to.eql(\"Yoga\");",
+                  "    pm.expect(i.actividad.cupoDisponible).to.eql(0);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ]
+            },
+            "description": "Nicolás Vega (22 años, al día, sin actividades) toma el último lugar de Yoga.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": 20,\n  \"actividadId\": 8\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "RN1: sin cupo (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"Regla RN1\", () => {",
+                  "    const r = pm.response.json();",
+                  "    pm.expect(r.regla).to.eql(\"RN1\");",
+                  "    pm.expect(r.error).to.eql(\"La actividad no tiene cupo disponible\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ]
+            },
+            "description": "Yoga quedó completo con el pedido anterior.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": 19,\n  \"actividadId\": 8\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "RN2: ya inscripto (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"Regla RN2\", () => {",
+                  "    const r = pm.response.json();",
+                  "    pm.expect(r.regla).to.eql(\"RN2\");",
+                  "    pm.expect(r.error).to.eql(\"El socio ya está inscripto en esta actividad\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ]
+            },
+            "description": "Juan Pereyra ya está en Vóley mixto.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": 2,\n  \"actividadId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "RN3: edad fuera de rango (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"Regla RN3 con el rango permitido\", () => {",
+                  "    const r = pm.response.json();",
+                  "    pm.expect(r.regla).to.eql(\"RN3\");",
+                  "    pm.expect(r.error).to.include(\"6 a 12\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ]
+            },
+            "description": "Mateo Castro tiene 14 años y Fútbol infantil es de 6 a 12.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": 16,\n  \"actividadId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "RN4: socio moroso (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"Regla RN4\", () => {",
+                  "    const r = pm.response.json();",
+                  "    pm.expect(r.regla).to.eql(\"RN4\");",
+                  "    pm.expect(r.error).to.eql(\"Debe regularizar su cuota en secretaría\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ]
+            },
+            "description": "Marcos López tiene la cuota impaga.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": 4,\n  \"actividadId\": 6\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "RN5: máximo de actividades (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"Regla RN5\", () => {",
+                  "    const r = pm.response.json();",
+                  "    pm.expect(r.regla).to.eql(\"RN5\");",
+                  "    pm.expect(r.error).to.eql(\"Alcanzó el máximo de 3 actividades\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ]
+            },
+            "description": "Lucía Gómez ya tiene 3 actividades.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": 1,\n  \"actividadId\": 6\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Inscribir socio inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": 999,\n  \"actividadId\": 8\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Dar de baja (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Queda en estado BAJA\", () => pm.expect(pm.response.json().estado).to.eql(\"BAJA\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones/{{inscripcionId}}/baja",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones",
+                "{{inscripcionId}}",
+                "baja"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Dar de baja inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inscripciones/99999/baja",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inscripciones",
+                "99999",
+                "baja"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Después de la baja: Vega sin actividades",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Responde 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Lista vacía\", () => pm.expect(pm.response.json()).to.have.lengthOf(0));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/20/inscripciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "20",
+                "inscripciones"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${socio.id == null ? 'Nuevo socio' : 'Editar socio'})}"></head>
+<body>
+
+<header th:replace="~{fragments/layout :: encabezado('socios')}"></header>
+
+<main class="contenido contenido--angosto">
+    <h1 th:text="${socio.id == null} ? 'Nuevo socio' : 'Editar socio'">Nuevo socio</h1>
+
+    <div th:replace="~{fragments/layout :: mensajes}"></div>
+
+    <form class="formulario" th:action="@{/socios/guardar}" th:object="${socio}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="fila">
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" th:field="*{nombre}" required maxlength="60">
+            </div>
+            <div class="campo">
+                <label for="apellido">Apellido</label>
+                <input type="text" th:field="*{apellido}" required maxlength="60">
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label for="dni">DNI (sin puntos)</label>
+                <input type="text" th:field="*{dni}" required pattern="[0-9]{7,8}" inputmode="numeric"
+                       title="7 u 8 números, sin puntos">
+            </div>
+            <div class="campo">
+                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input type="date" th:field="*{fechaNacimiento}" required>
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label for="email">Email</label>
+                <input type="email" th:field="*{email}" maxlength="120">
+            </div>
+            <div class="campo">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" th:field="*{telefono}" maxlength="30">
+            </div>
+        </div>
+
+        <div class="campo">
+            <label for="estadoCuota">Estado de la cuota</label>
+            <select th:field="*{estadoCuota}">
+                <option th:each="e : ${estados}" th:value="${e}"
+                        th:text="${e.name() == 'MOROSO'} ? 'Moroso' : 'Al día'">Al día</option>
+            </select>
+        </div>
+
+        <div class="botones">
+            <a class="boton" th:href="@{/socios}">Cancelar</a>
+            <button class="boton boton--primario" type="submit">Guardar</button>
+        </div>
+    </form>
+
+    <section th:if="${inscripciones != null}" class="seccion-extra">
+        <h2>Actividades activas</h2>
+        <p th:if="${#lists.isEmpty(inscripciones)}" class="vacio">No está inscripto en ninguna actividad.</p>
+        <ul th:unless="${#lists.isEmpty(inscripciones)}" class="lista-simple">
+            <li th:each="i : ${inscripciones}">
+                <a th:href="@{/actividades/{id}/inscriptos(id=${i.actividad.id})}" th:text="${i.actividad.nombre}">Yoga</a>
+                <span class="ayuda" th:text="' · ' + ${i.actividad.dias} + ' ' + ${i.actividad.horario}"> · Mar y Jue 09:00</span>
+            </li>
+        </ul>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+
+</body>
+</html>

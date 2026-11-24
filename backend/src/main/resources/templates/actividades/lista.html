@@ -53,6 +53,7 @@
                           th:text="${a.cupoDisponible} + ' / ' + ${a.cupoMaximo}">12 / 40</span>
                 </td>
                 <td class="acciones">
+                    <a class="boton boton--chico" th:href="@{/actividades/{id}/inscriptos(id=${a.id})}">Inscriptos</a>
                     <a class="boton boton--chico" th:href="@{/actividades/{id}/editar(id=${a.id})}">Editar</a>
                     <form th:action="@{/actividades/{id}/eliminar(id=${a.id})}" method="post"
                           onsubmit="return confirm('¿Eliminar esta actividad?')">
