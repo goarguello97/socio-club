@@ -253,13 +253,13 @@ Cuando una regla rechaza la operación, la respuesta es `409 Conflict` con el me
 
 ## Integrantes
 
-| Integrante | Rol principal |
-|---|---|
-| _completar_ | |
-| _completar_ | |
-| _completar_ | |
-| _completar_ | |
-| _completar_ | |
+**Grupo 8**
+
+- Argüello, Gonzalo Nicolás
+- Bellini, Bautista
+- Gatti, Thiago
+- Ochoa, Mariano
+- Soria, Bruno Santiago
 
 ---
 

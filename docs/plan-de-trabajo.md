@@ -18,7 +18,7 @@ Club Social y Deportivo Los Algarrobos · Taller de Construcción de Software ·
 | **Semana 1** (exposición del grupo) | Parte A completa. Parte B: proyecto en capas, entidades, repositorios, MySQL con datos iniciales y ABM de actividades en Thymeleaf. Este plan de trabajo. | ✅ | _completar_ |
 | **Semana 2** (~70 %) | Parte B completa: socios con paginación y búsqueda; inscripciones con RN1 a RN5. Parte D iniciada con datos locales: rutas, componentes, props, estado y contexto. | ✅ | _completar_ |
 | **Semana 3** (~90 %) | Parte C completa y probada en Postman. Parte D conectada con Axios: ingreso por DNI, inscripción y baja reales. Parte E iniciada (Jest). | ✅ | _completar_ |
-| **Entrega final** (100 %) | Partes A a F completas, con las devoluciones de la exposición incorporadas. PDF `TPI_SocioClub_GrupoN.pdf` con el enlace al repositorio en la primera página. | ✅ | última clase |
+| **Entrega final** (100 %) | Partes A a F completas, con las devoluciones de la exposición incorporadas. PDF `TPI_SocioClub_Grupo8.pdf` con el enlace al repositorio en la primera página. | ✅ | última clase |
 
 ---
 
@@ -95,7 +95,7 @@ Club Social y Deportivo Los Algarrobos · Taller de Construcción de Software ·
 | F1 | Subir el repositorio a GitHub (público o con el docente invitado) | **Ya** | | ✅ |
 | F2 | Commits de **todos** los integrantes a lo largo del cuatrimestre | Continuo | todos | ⬜ |
 | F3 | `README.md` en la raíz: integrantes, cómo levantar la base, el backend, el sitio y la app, y DNI de prueba | Final | | ✅ |
-| F4 | Informe técnico en PDF (8 a 12 páginas): está en `docs/informe/`. Falta completar número de grupo e integrantes | Final | | ✅ |
+| F4 | Informe técnico en PDF (8 a 12 páginas): `docs/informe/TPI_SocioClub_Grupo8.pdf` | Final | | ✅ |
 | F5 | Bitácora de uso de IA: 5 o más entradas, al menos 3 con un error detectado y corregido (ver sección 5) | Final | | ✅ |
 
 ---
